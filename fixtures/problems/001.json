@@ -1,0 +1,18 @@
+{
+  "source_id": "vietjack_01",
+  "source_url": "https://vietjack.com/giai-toan-8-bai-1-hinh-binh-hanh.jsp",
+  "source_title": "Bài 1: Hình bình hành - VietJack",
+  "source_domain": "vietjack.com",
+  "retrieved_date": "2024-01-15T10:30:00Z",
+  "original_text": "Bài 1: Cho hình bình hành ABCD. Biết AB = 8cm, BC = 6cm. Tính chu vi của hình bình hành ABCD.",
+  "question": "Cho hình bình hành ABCD. Biết AB = 8cm, BC = 6cm. Tính chu vi của hình bình hành ABCD.",
+  "expected_metadata": {
+    "grade": 8,
+    "subject": "Toán",
+    "chapter": "Hình học",
+    "topic": "Hình bình hành",
+    "subtopic": "Tính chất cạnh",
+    "problem_type": "Tính chu vi",
+    "difficulty": "basic"
+  }
+}

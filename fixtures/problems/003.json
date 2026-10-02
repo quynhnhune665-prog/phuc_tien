@@ -1,0 +1,18 @@
+{
+  "source_id": "sachgiaovien_01",
+  "source_url": "https://sachgiaovien.com/toan-8-hinh-binh-hanh",
+  "source_title": "Toán 8 - Hình bình hành",
+  "source_domain": "sachgiaovien.com",
+  "retrieved_date": "2024-01-15T10:40:00Z",
+  "original_text": "Bài 3: Chứng minh rằng tứ giác ABCD là hình bình hành nếu AB // CD và AB = CD.",
+  "question": "Chứng minh rằng tứ giác ABCD là hình bình hành nếu AB // CD và AB = CD.",
+  "expected_metadata": {
+    "grade": 8,
+    "subject": "Toán",
+    "chapter": "Hình học",
+    "topic": "Hình bình hành",
+    "subtopic": "Dấu hiệu nhận biết",
+    "problem_type": "Chứng minh",
+    "difficulty": "basic"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "source_id": "toanmath_01",
+  "source_url": "https://toanmath.com/hinh-binh-hanh-lop-8",
+  "source_title": "Hình bình hành lớp 8 - Toán Math",
+  "source_domain": "toanmath.com",
+  "retrieved_date": "2024-01-15T10:45:00Z",
+  "original_text": "Bài 4: Hình bình hành ABCD có diagonals AC = 10cm, BD = 8cm, và chúng cắt nhau tại O. Biết AO = 5cm. Tính OC.",
+  "question": "Hình bình hành ABCD có diagonals AC = 10cm, BD = 8cm, và chúng cắt nhau tại O. Biết AO = 5cm. Tính OC.",
+  "expected_metadata": {
+    "grade": 8,
+    "subject": "Toán",
+    "chapter": "Hình học",
+    "topic": "Hình bình hành",
+    "subtopic": "Đường chéo",
+    "problem_type": "Tính độ dài",
+    "difficulty": "basic"
+  }
+}

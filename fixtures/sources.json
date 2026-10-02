@@ -1,0 +1,72 @@
+[
+  {
+    "id": "vietjack_01",
+    "url": "https://vietjack.com/giai-toan-8-bai-1-hinh-binh-hanh.jsp",
+    "title": "Bài 1: Hình bình hành - VietJack",
+    "domain": "vietjack.com",
+    "type": "html"
+  },
+  {
+    "id": "hocmai_01",
+    "url": "https://hocmai.vn/bai-hoc/hinh-binh-hanh-toan-8",
+    "title": "Hình bình hành - Hocmai",
+    "domain": "hocmai.vn",
+    "type": "html"
+  },
+  {
+    "id": "sachgiaovien_01",
+    "url": "https://sachgiaovien.com/toan-8-hinh-binh-hanh",
+    "title": "Toán 8 - Hình bình hành",
+    "domain": "sachgiaovien.com",
+    "type": "html"
+  },
+  {
+    "id": "toanmath_01",
+    "url": "https://toanmath.com/hinh-binh-hanh-lop-8",
+    "title": "Hình bình hành lớp 8 - Toán Math",
+    "domain": "toanmath.com",
+    "type": "html"
+  },
+  {
+    "id": "violet_01",
+    "url": "https://violet.vn/uploads/resources/hinh-binh-hanh.pdf",
+    "title": "Chuyên đề Hình bình hành",
+    "domain": "violet.vn",
+    "type": "pdf"
+  },
+  {
+    "id": "loigiaihay_01",
+    "url": "https://loigiaihay.com/giai-bai-1-trang-92-toan-8-ket-noi-tri-thuc",
+    "title": "Giải bài 1 trang 92 Toán 8 Kết nối tri thức",
+    "domain": "loigiaihay.com",
+    "type": "html"
+  },
+  {
+    "id": "vietjack_02",
+    "url": "https://vietjack.com/giai-toan-8-bai-2-hinh-binh-hanh.jsp",
+    "title": "Bài 2: Tính chất hình bình hành - VietJack",
+    "domain": "vietjack.com",
+    "type": "html"
+  },
+  {
+    "id": "hocmai_02",
+    "url": "https://hocmai.vn/bai-hoc/tinh-chat-hinh-binh-hanh",
+    "title": "Tính chất hình bình hành - Hocmai",
+    "domain": "hocmai.vn",
+    "type": "html"
+  },
+  {
+    "id": "thcs_01",
+    "url": "https://thcsdayphac.edu.vn/uploads/2023-09/hinh-binh-hanh-ve-dau-hieu.pdf",
+    "title": "Hình bình hành - Dấu hiệu nhận biết",
+    "domain": "thcsdayphac.edu.vn",
+    "type": "pdf"
+  },
+  {
+    "id": "toanpho_01",
+    "url": "https://toanpho.net/hinh-binh-hanh-lop-8-bai-tap-va-huong-dan",
+    "title": "Hình bình hành lớp 8 - Bài tập và hướng dẫn",
+    "domain": "toanpho.net",
+    "type": "html"
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "source_id": "toanpho_01",
+  "source_url": "https://toanpho.net/hinh-binh-hanh-lop-8-bai-tap-va-huong-dan",
+  "source_title": "Hình bình hành lớp 8 - Bài tập và hướng dẫn",
+  "source_domain": "toanpho.net",
+  "retrieved_date": "2024-01-15T11:15:00Z",
+  "original_text": "Bài 10: Hình bình hành ABCD có cạnh AB = 10cm, AD = 8cm. Từ A kẻ AH vuông góc với CD. Biết AH = 6cm. Tính diện tích hình bình hành ABCD.",
+  "question": "Hình bình hành ABCD có cạnh AB = 10cm, AD = 8cm. Từ A kẻ AH vuông góc với CD. Biết AH = 6cm. Tính diện tích hình bình hành ABCD.",
+  "expected_metadata": {
+    "grade": 8,
+    "subject": "Toán",
+    "chapter": "Hình học",
+    "topic": "Hình bình hành",
+    "subtopic": "Diện tích",
+    "problem_type": "Tính diện tích",
+    "difficulty": "basic"
+  }
+}

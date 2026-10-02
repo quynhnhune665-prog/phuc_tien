@@ -1,0 +1,18 @@
+{
+  "source_id": "hocmai_02",
+  "source_url": "https://hocmai.vn/bai-hoc/tinh-chat-hinh-binh-hanh",
+  "source_title": "Tính chất hình bình hành - Hocmai",
+  "source_domain": "hocmai.vn",
+  "retrieved_date": "2024-01-15T11:05:00Z",
+  "original_text": "Bài 8: Cho hình bình hành ABCD với các cạnh AB = 5cm, AD = 7cm. O là giao điểm của hai đường chéo. Tính AO nếu AC = 11cm.",
+  "question": "Cho hình bình hành ABCD với các cạnh AB = 5cm, AD = 7cm. O là giao điểm của hai đường chéo. Tính AO nếu AC = 11cm.",
+  "expected_metadata": {
+    "grade": 8,
+    "subject": "Toán",
+    "chapter": "Hình học",
+    "topic": "Hình bình hành",
+    "subtopic": "Đường chéo",
+    "problem_type": "Tính độ dài",
+    "difficulty": "basic"
+  }
+}

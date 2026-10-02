@@ -1,0 +1,18 @@
+{
+  "source_id": "thcs_01",
+  "source_url": "https://thcsdayphac.edu.vn/uploads/2023-09/hinh-binh-hanh-ve-dau-hieu.pdf",
+  "source_title": "Hình bình hành - Dấu hiệu nhận biết",
+  "source_domain": "thcsdayphac.edu.vn",
+  "retrieved_date": "2024-01-15T11:10:00Z",
+  "original_text": "Bài 9: Tứ giác ABCD có AB // CD, AB = CD = 8cm. Chứng minh tứ giác ABCD là hình bình hành.",
+  "question": "Tứ giác ABCD có AB // CD, AB = CD = 8cm. Chứng minh tứ giác ABCD là hình bình hành.",
+  "expected_metadata": {
+    "grade": 8,
+    "subject": "Toán",
+    "chapter": "Hình học",
+    "topic": "Hình bình hành",
+    "subtopic": "Dấu hiệu nhận biết",
+    "problem_type": "Chứng minh",
+    "difficulty": "basic"
+  }
+}

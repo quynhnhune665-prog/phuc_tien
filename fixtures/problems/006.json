@@ -1,0 +1,18 @@
+{
+  "source_id": "loigiaihay_01",
+  "source_url": "https://loigiaihay.com/giai-bai-1-trang-92-toan-8-ket-noi-tri-thuc",
+  "source_title": "Giải bài 1 trang 92 Toán 8 Kết nối tri thức",
+  "source_domain": "loigiaihay.com",
+  "retrieved_date": "2024-01-15T10:55:00Z",
+  "original_text": "Bài 6: Trong hình bình hành ABCD, nếu góc A + góc B = 180° và AB = CD, hãy xác định loại tứ giác ABCD.",
+  "question": "Trong hình bình hành ABCD, nếu góc A + góc B = 180° và AB = CD, hãy xác định loại tứ giác ABCD.",
+  "expected_metadata": {
+    "grade": 8,
+    "subject": "Toán",
+    "chapter": "Hình học",
+    "topic": "Hình bình hành",
+    "subtopic": "Nhận biết",
+    "problem_type": "Nhận biết hình bình hành",
+    "difficulty": "basic"
+  }
+}

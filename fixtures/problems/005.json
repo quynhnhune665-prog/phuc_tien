@@ -1,0 +1,18 @@
+{
+  "source_id": "violet_01",
+  "source_url": "https://violet.vn/uploads/resources/hinh-binh-hanh.pdf",
+  "source_title": "Chuyên đề Hình bình hành",
+  "source_domain": "violet.vn",
+  "retrieved_date": "2024-01-15T10:50:00Z",
+  "original_text": "Bài 5: Cho hình bình hành ABCD. M là trung điểm của AB, N là trung điểm của CD. Chứng minh rằng MN // AD và MN = AD.",
+  "question": "Cho hình bình hành ABCD. M là trung điểm của AB, N là trung điểm của CD. Chứng minh rằng MN // AD và MN = AD.",
+  "expected_metadata": {
+    "grade": 8,
+    "subject": "Toán",
+    "chapter": "Hình học",
+    "topic": "Hình bình hành",
+    "subtopic": "Trung điểm",
+    "problem_type": "Chứng minh",
+    "difficulty": "advanced"
+  }
+}

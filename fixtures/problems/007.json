@@ -1,0 +1,18 @@
+{
+  "source_id": "vietjack_02",
+  "source_url": "https://vietjack.com/giai-toan-8-bai-2-hinh-binh-hanh.jsp",
+  "source_title": "Bài 2: Tính chất hình bình hành - VietJack",
+  "source_domain": "vietjack.com",
+  "retrieved_date": "2024-01-15T11:00:00Z",
+  "original_text": "Bài 7: Hình bình hành ABCD có AB = 12cm. Kéo dài AB thêm đoạn BE = 4cm. Từ E kẻ đường thẳng song song với BC cắt DC kéo dài tại F. Tính EF.",
+  "question": "Hình bình hành ABCD có AB = 12cm. Kéo dài AB thêm đoạn BE = 4cm. Từ E kẻ đường thẳng song song với BC cắt DC kéo dài tại F. Tính EF.",
+  "expected_metadata": {
+    "grade": 8,
+    "subject": "Toán",
+    "chapter": "Hình học",
+    "topic": "Hình bình hành",
+    "subtopic": "Tính chất song song",
+    "problem_type": "Tính độ dài",
+    "difficulty": "advanced"
+  }
+}
