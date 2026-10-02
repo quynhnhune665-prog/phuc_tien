@@ -5,21 +5,21 @@ const fs = require('fs');
 const path = require('path');
 
 /**
- * DOCX Workbook Generator
- * Exports approved problems to Word format
+ * DOCX Workbook Generator (Enhanced with Validation)
+ * Exports only approved problems with source tracking
  */
 class WorkbookGenerator {
   async generateWorkbook(gradeId, topicId, includeAnswers = false) {
-    logger.info(`Generating workbook for grade ${gradeId}, topic ${topicId}`);
+    logger.info(`\nGenerating workbook for grade ${gradeId}, topic ${topicId}`);
 
     // Fetch metadata
     const grade = await db.one('SELECT * FROM grades WHERE id = $1', [gradeId]);
     const topic = await db.one('SELECT * FROM topics WHERE id = $1', [topicId]);
     const chapter = await db.one('SELECT * FROM chapters WHERE id = $1', [topic.chapter_id]);
 
-    // Fetch approved problems
+    // Fetch ONLY approved problems
     const problems = await db.manyOrNone(
-      `SELECT p.*, ps.source_url, ps.source_title
+      `SELECT p.*, ps.source_url, ps.source_title, ps.source_domain
        FROM problems p
        LEFT JOIN problem_sources ps ON ps.problem_id = p.id
        WHERE p.status = $1 AND p.grade_id = $2 AND p.topic_id = $3
@@ -27,12 +27,22 @@ class WorkbookGenerator {
       ['approved', gradeId, topicId]
     );
 
+    // Validation: No approved problems without sources
+    for (const problem of problems) {
+      if (!problem.source_url) {
+        logger.error(`\n🔴 VALIDATION FAILED: Approved problem #${problem.id} has no source URL`);
+        throw new Error(`Cannot generate workbook: approved problem without source`);
+      }
+    }
+
     if (problems.length === 0) {
       logger.warn(`No approved problems found for workbook`);
       return null;
     }
 
-    // Fetch theory and formulas
+    logger.info(`✓ Found ${problems.length} approved problems`);
+
+    // Fetch theories and formulas
     const theories = await db.manyOrNone(
       'SELECT * FROM theories WHERE topic_id = $1 ORDER BY created_at',
       [topicId]
@@ -59,6 +69,9 @@ class WorkbookGenerator {
     logger.info(`✓ Workbook saved: ${filepath}`);
 
     // Record in database
+    const basicCount = problems.filter(p => p.difficulty === 'basic').length;
+    const advancedCount = problems.filter(p => p.difficulty === 'advanced').length;
+
     const workbook = await db.one(
       `INSERT INTO workbooks (grade_id, topic_id, file_path, file_name, total_problems, basic_count, advanced_count, include_sources)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
@@ -69,8 +82,8 @@ class WorkbookGenerator {
         filepath,
         filename,
         problems.length,
-        problems.filter(p => p.difficulty === 'basic').length,
-        problems.filter(p => p.difficulty === 'advanced').length,
+        basicCount,
+        advancedCount,
         true
       ]
     );
@@ -159,7 +172,6 @@ class WorkbookGenerator {
           spacing: { before: 400, after: 200 }
         })
       );
-
       sections.push(...this.addProblems(basicProblems));
     }
 
@@ -171,7 +183,6 @@ class WorkbookGenerator {
           spacing: { before: 400, after: 200 }
         })
       );
-
       sections.push(...this.addProblems(advancedProblems));
     }
 
@@ -186,7 +197,9 @@ class WorkbookGenerator {
 
     const sources = new Set();
     problems.forEach(p => {
-      if (p.source_url) sources.add(`${p.source_title}: ${p.source_url}`);
+      if (p.source_url) {
+        sources.add(`${p.source_title || p.source_domain}: ${p.source_url}`);
+      }
     });
 
     [...sources].forEach((source, idx) => {
@@ -226,7 +239,7 @@ class WorkbookGenerator {
       );
       sections.push(
         new docx.Paragraph({
-          text: '━━━━━━━━━━━━━━━━━━━━',
+          text: '─────────────────────────────────────',
           spacing: { after: 100 }
         })
       );
@@ -237,7 +250,6 @@ class WorkbookGenerator {
           spacing: { after: 300 }
         })
       );
-      // Add empty space for handwriting
       for (let i = 0; i < 4; i++) {
         sections.push(
           new docx.Paragraph({

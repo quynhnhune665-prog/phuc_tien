@@ -2,14 +2,14 @@ const logger = require('../utils/logger');
 const { db } = require('../config/database');
 
 /**
- * Problem Repository
- * Handles database persistence for problems
+ * Problem Repository (Enhanced)
+ * Enforces provenance: APPROVED ⇒ source URL
  */
 class ProblemRepository {
   /**
-   * Create a problem candidate
+   * Create a problem candidate with classification result
    */
-  async createCandidate(candidate, classification, dedup, gradeId, topicId, subtopicId, problemTypeId) {
+  async createCandidate(candidate, classification, dedup, gradeId, topicId, subtopicId, problemTypeIds) {
     const { hashSHA256, hashNormalized, normalizeText } = require('../utils/hash');
 
     const contentHash = hashSHA256(candidate.question);
@@ -17,20 +17,27 @@ class ProblemRepository {
     const normalizedText = normalizeText(candidate.question);
 
     let status = 'candidate';
-    let reason = null;
+    let reviewReason = null;
 
-    // Determine initial status
+    // Determine initial status based on dedup + classification
     if (!candidate.source_url) {
       status = 'rejected';
-      reason = 'no_source_url';
+      reviewReason = 'MISSING_SOURCE';
     } else if (dedup.is_duplicate) {
       status = 'rejected';
-      reason = 'exact_duplicate';
-    } else if (dedup.suspected_duplicate || classification.requires_review) {
+      reviewReason = 'EXACT_DUPLICATE';
+    } else if (dedup.suspected_duplicate) {
       status = 'review_required';
-      reason = dedup.suspected_duplicate ? 'suspected_duplicate' : 'low_confidence';
+      reviewReason = 'POSSIBLE_DUPLICATE';
+    } else if (classification.decision === 'REVIEW') {
+      status = 'review_required';
+      reviewReason = 'LOW_CONFIDENCE';
+    } else if (classification.decision === 'APPROVED') {
+      status = 'review_required'; // Start in review, auto-approve later if confident
+      reviewReason = 'HIGH_CONFIDENCE_PENDING';
     }
 
+    // Create problem
     const problem = await db.one(
       `INSERT INTO problems
        (title, question, problem_type_id, subtopic_id, topic_id, grade_id, difficulty,
@@ -40,7 +47,7 @@ class ProblemRepository {
       [
         candidate.question.substring(0, 300),
         candidate.question,
-        problemTypeId,
+        problemTypeIds[0] || null,
         subtopicId,
         topicId,
         gradeId,
@@ -50,25 +57,24 @@ class ProblemRepository {
         normalizedText,
         contentHash,
         normalizedHash,
-        JSON.stringify({
-          grade: classification.grade.confidence,
-          topic: classification.topic.confidence,
-          type: classification.problemType.confidence,
-          difficulty: classification.difficulty.confidence,
-          overall_confidence: classification.overall_confidence
-        })
+        JSON.stringify(classification.confidence)
       ]
     );
 
     logger.info(`Created problem ${problem.id} with status: ${status}`);
 
-    return { problem, status, reason };
+    return { problem, status, reviewReason, classification };
   }
 
   /**
    * Add source to problem
+   * ENFORCED: Cannot approve without source
    */
   async addSource(problemId, sourceUrl, sourceTitle, sourceDomain, extractedText) {
+    if (!sourceUrl) {
+      throw new Error('Cannot add problem without source URL');
+    }
+
     const source = await db.one(
       `INSERT INTO problem_sources
        (problem_id, source_url, source_title, source_domain, extracted_text, is_verified)
@@ -77,7 +83,7 @@ class ProblemRepository {
       [problemId, sourceUrl, sourceTitle, sourceDomain, extractedText, true]
     );
 
-    logger.info(`Added source ${source.id} to problem ${problemId}`);
+    logger.info(`Added source ${source.id} to problem ${problemId}: ${sourceUrl}`);
     return source;
   }
 
@@ -98,11 +104,11 @@ class ProblemRepository {
   }
 
   /**
-   * Get approved problems
+   * Get approved problems (for workbook)
    */
   async getApproved(limit = 1000) {
     return await db.manyOrNone(
-      `SELECT p.*, ps.source_url
+      `SELECT p.*, ps.source_url, ps.source_title
        FROM problems p
        LEFT JOIN problem_sources ps ON ps.problem_id = p.id
        WHERE p.status = $1
@@ -112,7 +118,7 @@ class ProblemRepository {
   }
 
   /**
-   * Verify all approved problems have sources
+   * CRITICAL VALIDATION: All approved problems MUST have sources
    */
   async verifyProvenance() {
     const orphaned = await db.manyOrNone(
@@ -123,27 +129,27 @@ class ProblemRepository {
     );
 
     if (orphaned.length > 0) {
-      logger.error(`PROVENANCE VIOLATION: ${orphaned.length} approved problems without sources`);
+      logger.error(`\n🔴 PROVENANCE VIOLATION: ${orphaned.length} approved problems without sources:`);
+      orphaned.forEach(p => logger.error(`   - Problem #${p.id}`));
       return false;
     }
 
-    logger.info(`✓ All approved problems have sources`);
+    logger.info('✓ All approved problems have sources');
     return true;
   }
 
   /**
-   * Check no unapproved problems in workbook
+   * Verify only approved problems exist for export
    */
-  async checkOnlyApprovedForWorkbook() {
-    const unapproved = await db.oneOrNone(
-      `SELECT COUNT(*) as count FROM problems WHERE status != $1 AND status IS NOT NULL`,
-      ['approved']
-    );
+  async verifyExportQuality() {
+    const counts = await this.countByStatus();
+    const unapprovedCount = (counts.candidate || 0) + (counts.review_required || 0) + (counts.rejected || 0);
 
-    if (unapproved && unapproved.count > 0) {
-      logger.warn(`${unapproved.count} non-approved problems exist in database`);
+    if (unapprovedCount > 0) {
+      logger.warn(`Note: ${unapprovedCount} unapproved problems in database (not exported)`);
     }
 
+    logger.info(`✓ Database export quality verified`);
     return true;
   }
 }
